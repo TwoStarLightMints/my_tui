@@ -30,3 +30,11 @@ void Menu::set_focus(int direction) {
             focus--;
     }
 }
+
+std::string Option::to_string() {
+    return name;
+}
+
+void Option::action() {
+    callback();
+}
