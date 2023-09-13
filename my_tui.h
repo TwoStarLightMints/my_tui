@@ -12,7 +12,7 @@ class Menu {
         void set_focus(int direction);
     
     private:
-        std::vector<std::string> options;
+        std::vector<Option> options;
         int focus = 0;
 };
 
