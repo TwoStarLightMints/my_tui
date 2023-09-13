@@ -8,7 +8,7 @@ class Menu {
     public:
         Menu() {}
         void print_menu();
-        void add_option(std::string new_opt);
+        void add_option(std::string name, void (*callback)());
         void set_focus(int direction);
     
     private:
