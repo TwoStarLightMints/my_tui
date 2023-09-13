@@ -10,10 +10,10 @@
 void Menu::print_menu() {
     for (int i = 0; i < options.size(); i++) {
         if (i == focus) {
-            std::cout << i+1 << ". " << "\033[3;47;30m " << options[i] << " \033[0m" << '\n'; // This uses ANSI escape color codes to indicate
+            std::cout << i+1 << ". " << "\033[3;47;30m " << options[i].to_string() << " \033[0m" << '\n'; // This uses ANSI escape color codes to indicate
                                                                                               //  focus of menu items
         } else {
-            std::cout << i+1 << ". " << options[i] << '\n';
+            std::cout << i+1 << ". " << options[i].to_string() << '\n';
         }
     }
 }
