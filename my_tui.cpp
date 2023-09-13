@@ -18,8 +18,8 @@ void Menu::print_menu() {
     }
 }
 
-void Menu::add_option(std::string new_opt) {
-    options.push_back(new_opt);
+void Menu::add_option(std::string name, void (*callback)()) {
+    options.push_back(Option(name, callback));
 }
 
 void Menu::set_focus(int direction) {
