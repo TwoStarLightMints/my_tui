@@ -4,18 +4,6 @@
 #include <string>
 #include <iostream>
 
-class Menu {
-    public:
-        Menu() {}
-        void print_menu();
-        void add_option(std::string name, void (*callback)());
-        void set_focus(int direction);
-    
-    private:
-        std::vector<Option> options;
-        int focus = 0;
-};
-
 class Option {
     public:
         Option(std::string name, void (*callback)())
@@ -29,6 +17,18 @@ class Option {
     private:
         std::string name;
         void (*callback)();
+};
+
+class Menu {
+    public:
+        Menu() {}
+        void print_menu();
+        void add_option(std::string name, void (*callback)());
+        void set_focus(int direction);
+    
+    private:
+        std::vector<Option> options;
+        int focus = 0;
 };
 
 #endif
