@@ -16,4 +16,19 @@ class Menu {
         int focus = 0;
 };
 
+class Option {
+    public:
+        Option(std::string name, void (*callback)())
+            : name(name)
+            , callback(callback)
+            {}
+        
+        std::string to_string();
+
+        void action();
+    private:
+        std::string name;
+        void (*callback)();
+};
+
 #endif
