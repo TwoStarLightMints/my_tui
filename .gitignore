@@ -1,2 +1,5 @@
 # Ignore this file as it is used for testing purposes
 testing.cpp
+
+# Ignore executables
+*.exe
