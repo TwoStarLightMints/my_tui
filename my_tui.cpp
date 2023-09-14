@@ -37,21 +37,21 @@ void Menu::set_focus(int direction) {
     }
 }
 
-int Menu::get_focus() { // TODO: Allow user to change focus by simply pressing the up and down arrow keys, input must be unbuffered (i.e. user hits key, something happens NOT user hits key, then return, then something happens)
-    while (1) {
-        if (kbhit()) {
-            if (getch() == 224) { // The code 224 is sent as the initial message when an arrow key has been pressed
-                switch (getch()) { // This is the second signal sent when arrow key is pressed, this gives which arrow has been pressed
-                    case 72: // Code for up arrow
-                        return 1; // As stated in set_focus, move focus up when up arrow pressed
-                    case 80: // Code for down arrow
-                        return 2; // Similar to above, move focus down when down arrow pressed
+int Menu::get_focus() { // TODO: Make Linux compatible version
+    #if defined(_WIN32) || defined(WIN64)
+        while (1) {
+            if (kbhit()) {
+                if (getch() == 224) { // The code 224 is sent as the initial message when an arrow key has been pressed
+                    switch (getch()) { // This is the second signal sent when arrow key is pressed, this gives which arrow has been pressed
+                        case 72: // Code for up arrow
+                            return 1; // As stated in set_focus, move focus up when up arrow pressed
+                        case 80: // Code for down arrow
+                            return 2; // Similar to above, move focus down when down arrow pressed
+                    }
                 }
             }
         }
-    }
-
-    return 1;
+    #endif // _WIN32 || WIN64
 }
 
 /*================================================================================================================*/
