@@ -3,7 +3,9 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <termios.h>
+#if defined(_WIN32) || defined(WIN64)
+#include <conio.h>
+#endif
 
 class Option {
     public:

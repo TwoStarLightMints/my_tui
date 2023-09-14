@@ -33,7 +33,9 @@ void Menu::set_focus(int direction) {
 
 int Menu::get_focus() {
     while (1) {
-        
+        if (kbhit()) {
+            std::cout << static_cast<char>(getch()) << '\n';
+        }
     }
 }
 
