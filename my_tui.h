@@ -3,10 +3,13 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#if defined(_WIN32) || defined(WIN64)
+#if defined(_WIN32) || defined(WIN64) // Include only if on a Windows device
 #include <conio.h>
 #endif
 
+// This class is used as a wrapper to hold both the option name which will be used when
+// printing the menu, and it will hold the function that will be called when the user
+// selects the option
 class Option {
     public:
         Option(std::string name, void (*callback)())
@@ -22,6 +25,8 @@ class Option {
         void (*callback)();
 };
 
+// Used to hold all the options for a user, collect user input and process it,
+// and call the appropriate callback functions given a user's input
 class Menu {
     public:
         Menu() {}
@@ -32,7 +37,7 @@ class Menu {
     
     private:
         std::vector<Option> options;
-        int focus = 0;
+        int focus = 0; // This is the index of the currently selected option (i.e. if focus is 1, the second element of the options vector would be considered "selected" and if user were to hit return, the second element's callback function would be triggered)
 };
 
 #endif

@@ -23,7 +23,13 @@ void Menu::add_option(std::string name, void (*callback)()) {
 }
 
 void Menu::set_focus(int direction) {
-    if (!(focus+1 >= options.size() && direction == 1) && !(focus-1 < 0 && direction == 2)) {
+    // Passing in 1 moves the selection up (i.e. if user selection was 2, then it would be 1)
+    // Passing in 2 moves the selection down (i.e. if user selection was 1, then it would be 2)
+    if (
+        !(focus+1 >= options.size() && direction == 1) // If adding 1 to focus does not bring focus out of index range
+        &&
+        !(focus-1 < 0 && direction == 2) // If suctracting 1 from focus does not bring focus out of index range
+        ) {
         if (direction == 1)
             focus++;
         else if (direction == 2)
@@ -31,7 +37,7 @@ void Menu::set_focus(int direction) {
     }
 }
 
-int Menu::get_focus() {
+int Menu::get_focus() { // TODO: Allow user to change focus by simply pressing the up and down arrow keys, input must be unbuffered (i.e. user hits key, something happens NOT user hits key, then return, then something happens)
     while (1) {
         if (kbhit()) {
             std::cout << static_cast<char>(getch()) << '\n';
@@ -45,10 +51,10 @@ int Menu::get_focus() {
 //
 /*================================================================================================================*/
 
-std::string Option::to_string() {
+std::string Option::to_string() { // Used when presenting the option in the menu
     return name;
 }
 
-void Option::action() {
+void Option::action() { // Activiates the option's callback function
     callback();
 }
