@@ -31,9 +31,13 @@ class Menu {
     public:
         Menu() {}
         void print_menu();
+
         void add_option(std::string name, void (*callback)());
-        void set_focus(int direction);
+
+        void get_user_action();
+
         int get_focus();
+        void set_focus(int direction);
     
     private:
         std::vector<Option> options;
