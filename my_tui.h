@@ -29,7 +29,9 @@ class Option {
 // and call the appropriate callback functions given a user's input
 class Menu {
     public:
-        Menu() {}
+        Menu(bool numbered)
+        : numbered(numbered)
+        {}
         void print_menu();
 
         void add_option(std::string name, void (*callback)());
@@ -40,6 +42,7 @@ class Menu {
         void set_focus(int direction);
     
     private:
+        bool numbered;
         std::vector<Option> options;
         int focus = 0; // This is the index of the currently selected option (i.e. if focus is 1, the second element of the options vector would be considered "selected" and if user were to hit return, the second element's callback function would be triggered)
 };
