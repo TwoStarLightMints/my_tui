@@ -26,23 +26,32 @@ void Menu::set_focus(int direction) {
     // Passing in 1 moves the selection up (i.e. if user selection was 2, then it would be 1)
     // Passing in 2 moves the selection down (i.e. if user selection was 1, then it would be 2)
     if (
-        !(focus+1 >= options.size() && direction == 1) // If adding 1 to focus does not bring focus out of index range
+        !(focus+1 >= options.size() && direction == 2) // If adding 1 to focus does not bring focus out of index range
         &&
-        !(focus-1 < 0 && direction == 2) // If suctracting 1 from focus does not bring focus out of index range
+        !(focus-1 < 0 && direction == 1) // If subctracting 1 from focus does not bring focus out of index range
         ) {
         if (direction == 1)
-            focus++;
-        else if (direction == 2)
             focus--;
+        else if (direction == 2)
+            focus++;
     }
 }
 
 int Menu::get_focus() { // TODO: Allow user to change focus by simply pressing the up and down arrow keys, input must be unbuffered (i.e. user hits key, something happens NOT user hits key, then return, then something happens)
     while (1) {
         if (kbhit()) {
-            std::cout << static_cast<char>(getch()) << '\n';
+            if (getch() == 224) { // The code 224 is sent as the initial message when an arrow key has been pressed
+                switch (getch()) { // This is the second signal sent when arrow key is pressed, this gives which arrow has been pressed
+                    case 72: // Code for up arrow
+                        return 1; // As stated in set_focus, move focus up when up arrow pressed
+                    case 80: // Code for down arrow
+                        return 2; // Similar to above, move focus down when down arrow pressed
+                }
+            }
         }
     }
+
+    return 1;
 }
 
 /*================================================================================================================*/
