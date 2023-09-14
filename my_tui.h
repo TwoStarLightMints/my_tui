@@ -25,6 +25,7 @@ class Menu {
         void print_menu();
         void add_option(std::string name, void (*callback)());
         void set_focus(int direction);
+        int get_focus();
     
     private:
         std::vector<Option> options;
