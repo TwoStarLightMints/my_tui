@@ -22,6 +22,16 @@ void Menu::add_option(std::string name, void (*callback)()) {
     options.push_back(Option(name, callback));
 }
 
+void Menu::get_user_action() { // Abstracts away the get_focus and set_focus helper functions and allows natural user interaction
+    int decision = Menu::get_focus(); // Get the user's input
+
+    if (decision == 1 || decision == 2) { // Branch if the user is moving focus
+        Menu::set_focus(decision);
+    } else if (decision == 0) { // Branch if user wants to execute the option which is focused
+        options[focus].action(); // Select focused option using the focus attribute, then call that option's action method to execute it's callback function
+    }
+}
+
 void Menu::set_focus(int direction) {
     // Passing in 1 moves the selection up (i.e. if user selection was 2, then it would be 1)
     // Passing in 2 moves the selection down (i.e. if user selection was 1, then it would be 2)
@@ -41,13 +51,16 @@ int Menu::get_focus() { // TODO: Make Linux compatible version
     #if defined(_WIN32) || defined(WIN64)
         while (1) {
             if (kbhit()) {
-                if (getch() == 224) { // The code 224 is sent as the initial message when an arrow key has been pressed
+                int code = getch();
+                if (code == 224) { // The code 224 is sent as the initial message when an arrow key has been pressed
                     switch (getch()) { // This is the second signal sent when arrow key is pressed, this gives which arrow has been pressed
                         case 72: // Code for up arrow
                             return 1; // As stated in set_focus, move focus up when up arrow pressed
                         case 80: // Code for down arrow
                             return 2; // Similar to above, move focus down when down arrow pressed
                     }
+                } else if (code == 13) { // This is the code for pressing the return key
+                    return 0;
                 }
             }
         }
