@@ -34,6 +34,8 @@ class Menu {
         Menu(bool numbered = false)
         : numbered(numbered)
         {}
+        void render_menu();
+
         void print_menu();
 
         void add_option(std::string name, void (*callback)());
