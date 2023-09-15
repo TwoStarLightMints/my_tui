@@ -7,6 +7,19 @@
 //
 /*================================================================================================================*/
 
+void Menu::render_menu() {
+    int cont;
+    
+    do {
+        system("clear");
+
+        print_menu();
+        std::cout << "Use arrow keys and enter to interact with menu, or q to quit\n";
+
+        cont = get_user_action();
+    } while (cont); // While user is still performing actions within this render loop and has not pressed q, continue
+}
+
 void Menu::print_menu() {
     for (int i = 0; i < options.size(); i++) {
         if (i == focus) { // If the focus index matches the current item, use ANSI escape color codes to indicate focus to user
@@ -29,14 +42,18 @@ void Menu::add_option(std::string name, void (*callback)()) {
     options.push_back(Option(name, callback));
 }
 
-void Menu::get_user_action() { // Abstracts away the get_focus and set_focus helper functions and allows natural user interaction
+int Menu::get_user_action() { // Abstracts away the get_focus and set_focus helper functions and allows natural user interaction
     int decision = Menu::get_focus(); // Get the user's input
 
     if (decision == 1 || decision == 2) { // Branch if the user is moving focus
         Menu::set_focus(decision);
     } else if (decision == 0) { // Branch if user wants to execute the option which is focused
         options[focus].action(); // Select focused option using the focus attribute, then call that option's action method to execute it's callback function
+    } else if (decision == -1) {
+        return 0; // End render loop
     }
+
+    return 1; // Continue render loop
 }
 
 void Menu::set_focus(int direction) {
@@ -68,6 +85,8 @@ int Menu::get_focus() { // TODO: Make Linux compatible version
                     }
                 } else if (code == 13) { // This is the code for pressing the return key
                     return 0;
+                } else if (code == 113) { // This is the code for the q key, returning -1 will exit the current menu render loop
+                    return -1;
                 }
             }
         }
