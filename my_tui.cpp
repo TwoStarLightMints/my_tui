@@ -7,7 +7,7 @@
 //
 /*================================================================================================================*/
 
-void Menu::render_menu() {
+void Menu::render_menu() { // TODO: Hide cursor on Linux machines
     int cont;
     
     #ifdef _WIN32 // Hide cursor on Windows
@@ -89,25 +89,26 @@ void Menu::set_focus(int direction) {
 }
 
 int Menu::get_focus() { // TODO: Make Linux compatible version
-    #ifdef _WIN32
         while (1) {
-            if (kbhit()) {
-                int code = getch();
-                if (code == 224) { // The code 224 is sent as the initial message when an arrow key has been pressed
-                    switch (getch()) { // This is the second signal sent when arrow key is pressed, this gives which arrow has been pressed
-                        case 72: // Code for up arrow
-                            return 1; // As stated in set_focus, move focus up when up arrow pressed
-                        case 80: // Code for down arrow
-                            return 2; // Similar to above, move focus down when down arrow pressed
-                    }
-                } else if (code == 13) { // This is the code for pressing the return key
-                    return 0;
-                } else if (code == 113) { // This is the code for the q key, returning -1 will exit the current menu render loop
+            #ifdef _WIN32
+                if (kbhit()) {
+                    int code = getch();
+                    if (code == 224) { // The code 224 is sent as the initial message when an arrow key has been pressed
+                        switch (getch()) { // This is the second signal sent when arrow key is pressed, this gives which arrow has been pressed
+                            case 72: // Code for up arrow
+                                return 1; // As stated in set_focus, move focus up when up arrow pressed
+                            case 80: // Code for down arrow
+                                return 2; // Similar to above, move focus down when down arrow pressed
+                        }
+                    } else if (code == 13) { // This is the code for pressing the return key
+                        return 0;
+                    } else if (code == 113) { // This is the code for the q key, returning -1 will exit the current menu render loop
                     return -1;
+                    }
                 }
-            }
+            #elif __linux__
+            #endif
         }
-    #endif // _WIN32 || WIN64
 }
 
 /*================================================================================================================*/
