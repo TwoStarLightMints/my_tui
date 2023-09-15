@@ -11,6 +11,9 @@
 
 #elif __linux__
 #include <termios.h>
+#include <unistd.h>
+
+void custom_pause();
 
 #endif
 
