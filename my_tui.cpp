@@ -10,6 +10,14 @@
 void Menu::render_menu() {
     int cont;
     
+    #if defined(_WIN32) || defined(WIN64) // Hide cursor on Windows
+    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursor_info;
+    GetConsoleCursorInfo(out, &cursor_info);
+    cursor_info.bVisible = false;
+    SetConsoleCursorInfo(out, &cursor_info);
+    #endif
+
     do {
         system("clear");
 
@@ -17,6 +25,13 @@ void Menu::render_menu() {
 
         cont = get_user_action();
     } while (cont); // While user is still performing actions within this render loop and has not pressed q, continue
+
+    #if defined(_WIN32) || defined(WIN64) // Unhide cursor on Windows
+    out = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleCursorInfo(out, &cursor_info);
+    cursor_info.bVisible = true;
+    SetConsoleCursorInfo(out, &cursor_info);
+    #endif
 }
 
 void Menu::print_menu() {
