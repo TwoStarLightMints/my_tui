@@ -9,11 +9,18 @@
 
 void Menu::print_menu() {
     for (int i = 0; i < options.size(); i++) {
-        if (i == focus) {
-            std::cout << i+1 << ". " << "\033[3;47;1m " << options[i].to_string() << " \033[0m" << '\n'; // This uses ANSI escape color codes to indicate
-                                                                                                         //  focus of menu items
+        if (i == focus) { // If the focus index matches the current item, use ANSI escape color codes to indicate focus to user
+            if (numbered) {
+                std::cout << i+1 << ". " << "\033[3;47;1m " << options[i].to_string() << " \033[0m" << '\n';
+            } else {
+                std::cout << "\033[3;47;1m " << options[i].to_string() << " \033[0m" << '\n';
+            }
         } else {
-            std::cout << i+1 << ". " << options[i].to_string() << '\n';
+            if (numbered) {
+                std::cout << i+1 << ". " << options[i].to_string() << '\n';
+            } else {
+                std::cout << options[i].to_string() << '\n';
+            }
         }
     }
 }
