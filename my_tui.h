@@ -7,6 +7,7 @@
 
 #if defined(_WIN32) || defined(WIN64) // Include only if on a Windows device
 #include <conio.h>
+#include <windows.h>
 #endif
 
 // This class is used as a wrapper to hold both the option name which will be used when
