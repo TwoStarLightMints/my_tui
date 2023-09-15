@@ -40,7 +40,7 @@ class Menu {
 
         void add_option(std::string name, void (*callback)());
 
-        void get_user_action();
+        int get_user_action();
 
         int get_focus();
         void set_focus(int direction);
