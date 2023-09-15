@@ -15,6 +15,8 @@
 
 void custom_pause();
 
+char getch_l(); // This function is used as a replacement for the getch() function in conio for linux
+
 #endif
 
 // This class is used as a wrapper to hold both the option name which will be used when
