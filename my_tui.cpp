@@ -1,5 +1,4 @@
 #include "my_tui.h"
-#include <termios.h>
 
 void custom_pause() {
     std::cout << "Press enter to continue...";
