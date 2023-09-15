@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 
-#if defined(_WIN32) || defined(WIN64) // Include only if on a Windows device
+#ifdef _WIN32 // Include only if on a Windows device
 #include <conio.h>
 #include <windows.h>
 #endif

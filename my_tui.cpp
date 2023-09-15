@@ -10,7 +10,7 @@
 void Menu::render_menu() {
     int cont;
     
-    #if defined(_WIN32) || defined(WIN64) // Hide cursor on Windows
+    #ifdef _WIN32 // Hide cursor on Windows
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursor_info;
     GetConsoleCursorInfo(out, &cursor_info);
@@ -26,7 +26,7 @@ void Menu::render_menu() {
         cont = get_user_action();
     } while (cont); // While user is still performing actions within this render loop and has not pressed q, continue
 
-    #if defined(_WIN32) || defined(WIN64) // Unhide cursor on Windows
+    #ifdef _WIN32 // Unhide cursor on Windows
     out = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleCursorInfo(out, &cursor_info);
     cursor_info.bVisible = true;
@@ -89,7 +89,7 @@ void Menu::set_focus(int direction) {
 }
 
 int Menu::get_focus() { // TODO: Make Linux compatible version
-    #if defined(_WIN32) || defined(WIN64)
+    #ifdef _WIN32
         while (1) {
             if (kbhit()) {
                 int code = getch();
