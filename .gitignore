@@ -3,3 +3,12 @@ testing.cpp
 
 # Ignore executables
 *.exe
+
+# Ignore make files
+Makefile
+
+# Ignore scripts
+*.ps1
+
+# Ignore vscode config files
+.vscode
