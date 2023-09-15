@@ -1,8 +1,10 @@
 #ifndef MY_TUI
 #define MY_TUI
+
 #include <vector>
 #include <string>
 #include <iostream>
+
 #if defined(_WIN32) || defined(WIN64) // Include only if on a Windows device
 #include <conio.h>
 #endif
