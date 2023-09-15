@@ -14,19 +14,19 @@ void Menu::render_menu() {
         system("clear");
 
         print_menu();
-        std::cout << "Use arrow keys and enter to interact with menu, or q to quit\n";
 
         cont = get_user_action();
     } while (cont); // While user is still performing actions within this render loop and has not pressed q, continue
 }
 
 void Menu::print_menu() {
+    std::cout << "\033[1;4m" << menu_name << "\033[0m" << "\n\n";
     for (int i = 0; i < options.size(); i++) {
         if (i == focus) { // If the focus index matches the current item, use ANSI escape color codes to indicate focus to user
             if (numbered) {
-                std::cout << i+1 << ". " << "\033[3;47;1m " << options[i].to_string() << " \033[0m" << '\n';
+                std::cout << i+1 << ". " << "\033[30;47m " << options[i].to_string() << " \033[0m" << '\n';
             } else {
-                std::cout << "\033[3;47;1m " << options[i].to_string() << " \033[0m" << '\n';
+                std::cout << "\033[30;47m " << options[i].to_string() << " \033[0m" << '\n';
             }
         } else {
             if (numbered) {
@@ -36,6 +36,8 @@ void Menu::print_menu() {
             }
         }
     }
+
+    std::cout << "\nUse arrow keys and enter to interact with menu, or q to quit\n";
 }
 
 void Menu::add_option(std::string name, void (*callback)()) {
